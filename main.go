@@ -46,15 +46,21 @@ func init() {
 	flag.StringVar(&port, "port", "8084", "Port on which to run")
 	db.Register("mongodb", &mongodb.Mongo{})
 	
-	app, err := newrelic.NewApplication(
+
+}
+
+func main() {
+        app, err := newrelic.NewApplication(
 	    newrelic.ConfigAppName(os.Getenv("NEW_RELIC_APP_NAME")),
 	    newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
             newrelic.ConfigDistributedTracerEnabled(true),
             newrelic.ConfigDebugLogger(os.Stdout),
 	)
-}
-
-func main() {
+	if err != nil {
+                logger.Log("err", err)
+                os.Exit(1)
+        }
+        
 
 	flag.Parse()
 	// Mechanical stuff.
@@ -78,7 +84,7 @@ func main() {
 	host := strings.Split(localAddr.String(), ":")[0]
 	defer conn.Close()
 
-	var tracer stdopentracing.Tracer
+	/*var tracer stdopentracing.Tracer
 	{
 		if zip == "" {
 			tracer = stdopentracing.NoopTracer{}
@@ -103,6 +109,8 @@ func main() {
 		}
 		stdopentracing.InitGlobalTracer(tracer)
 	}
+        */
+        
 	dbconn := false
 	for !dbconn {
 		err := db.Init()
