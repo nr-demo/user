@@ -152,10 +152,10 @@ func main() {
 	}
 
 	// Endpoint domain.
-	endpoints := api.MakeEndpoints(service, tracer)
+	endpoints := api.MakeEndpoints(service)
 
 	// HTTP router
-	router := api.MakeHTTPHandler(endpoints, logger, tracer)
+	router := api.MakeHTTPHandler(endpoints, logger)
 
 	httpMiddleware := []commonMiddleware.Interface{
 		commonMiddleware.Instrument{
