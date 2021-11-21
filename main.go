@@ -21,6 +21,7 @@ import (
 	zipkin "github.com/openzipkin-contrib/zipkin-go-opentracing"
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
 	commonMiddleware "github.com/weaveworks/common/middleware"
+	"github.com/go-kit/kit/tracing/opentracing"
 )
 
 var (
