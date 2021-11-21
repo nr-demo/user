@@ -17,8 +17,8 @@ import (
 	"github.com/microservices-demo/user/api"
 	"github.com/microservices-demo/user/db"
 	"github.com/microservices-demo/user/db/mongodb"
-	stdopentracing "github.com/opentracing/opentracing-go"
-	zipkin "github.com/openzipkin-contrib/zipkin-go-opentracing"
+//	stdopentracing "github.com/opentracing/opentracing-go"
+//	zipkin "github.com/openzipkin-contrib/zipkin-go-opentracing"
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
 	commonMiddleware "github.com/weaveworks/common/middleware"
 )
@@ -50,16 +50,7 @@ func init() {
 }
 
 func main() {
-        app, err := newrelic.NewApplication(
-	    newrelic.ConfigAppName(os.Getenv("NEW_RELIC_APP_NAME")),
-	    newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
-            newrelic.ConfigDistributedTracerEnabled(true),
-            newrelic.ConfigDebugLogger(os.Stdout),
-	)
-	if err != nil {
-                logger.Log("err", err)
-                os.Exit(1)
-        }
+
         
 
 	flag.Parse()
@@ -73,6 +64,17 @@ func main() {
 		logger = log.With(logger, "ts", log.DefaultTimestampUTC)
 		logger = log.With(logger, "caller", log.DefaultCaller)
 	}
+
+	app, err := newrelic.NewApplication(
+	    newrelic.ConfigAppName(os.Getenv("NEW_RELIC_APP_NAME")),
+	    newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
+            newrelic.ConfigDistributedTracerEnabled(true),
+            newrelic.ConfigDebugLogger(os.Stdout),
+	)
+	if err != nil {
+                logger.Log("err", err)
+                os.Exit(1)
+        }
 
 	// Find service local IP.
 	conn, err := net.Dial("udp", "8.8.8.8:80")
