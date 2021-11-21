@@ -1,5 +1,6 @@
 package: github.com/microservices-demo/user
 import:
+- package: github.com/newrelic/go-agent/v3/newrelic
 - package: github.com/go-kit/kit
   version: v0.4.0
   subpackages:
