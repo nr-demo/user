@@ -11,7 +11,7 @@ import (
 	"syscall"
 
 	corelog "log"
-
+        "github.com/newrelic/go-agent/v3/newrelic"
 	"github.com/go-kit/kit/log"
 	kitprometheus "github.com/go-kit/kit/metrics/prometheus"
 	"github.com/microservices-demo/user/api"
