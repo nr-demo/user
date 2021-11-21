@@ -7,7 +7,8 @@ ENV USER_DATABASE mongodb
 COPY . ${sourcesdir}
 RUN apk update
 RUN apk add git
-RUN go get -v github.com/Masterminds/glide && cd ${sourcesdir} && glide update && glide install && go install
+#RUN go get -v github.com/Masterminds/glide && cd ${sourcesdir} && glide update && glide install && go install
+RUN cd ${sourcesdir} && go mod init && go mod vendor && go install
 
 ENTRYPOINT user
 EXPOSE 8084
