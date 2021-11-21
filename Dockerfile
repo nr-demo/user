@@ -7,6 +7,7 @@ ENV USER_DATABASE mongodb
 COPY . ${sourcesdir}
 RUN apk update
 RUN apk add git
+RUN go mod init
 RUN go get github.com/newrelic/go-agent/v3/newrelic
 RUN go get -v github.com/Masterminds/glide && cd ${sourcesdir} && glide install && go install
 
